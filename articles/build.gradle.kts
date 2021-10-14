@@ -43,4 +43,6 @@ dependencies {
     // testing
     uiTest()
     unitTest()
+
+    implementation(project(":core"))
 }
