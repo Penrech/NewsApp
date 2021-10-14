@@ -2,4 +2,10 @@
 <resources>
     <string name="retry_button">Retry</string>
     <string name="general_error_title">An error has occurred</string>
+    <string name="network_connection_error_title">There is not network connection</string>
+    <string name="network_connection_error_subtitle">Please, enable data connection and try again</string>
+    <string name="network_database_error_title">Something went wrong on our side</string>
+    <string name="network_database_error_subtitle">Please, try again</string>
+    <string name="empty_article_list_error_title">There is no articles to read right now</string>
+    <string name="not_found_article_detail_error_title">The article selected can not be found</string>
 </resources>
