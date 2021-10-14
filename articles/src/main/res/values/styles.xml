@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="BigTitleText" parent="">
+        <item name="android:textColor">@color/softBlack</item>
+        <item name="fontFamily">@font/quicksand_bold</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="SubTitleText" parent="">
+        <item name="android:textColor">@color/softBlack</item>
+        <item name="fontFamily">@font/quicksand_semibold</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="DateText" parent="">
+        <item name="android:textColor">@color/softBlack</item>
+        <item name="fontFamily">@font/quicksand_regular</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+</resources>
