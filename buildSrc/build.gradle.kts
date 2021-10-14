@@ -15,3 +15,12 @@ dependencies {
     implementation(kotlin("gradle-plugin", "1.5.31"))
     implementation(kotlin("android-extensions"))
 }
+
+gradlePlugin {
+    plugins {
+        register("base-android-config") {
+            id = "base-android-config"
+            implementationClass = "AndroidBasePlugin"
+        }
+    }
+}
