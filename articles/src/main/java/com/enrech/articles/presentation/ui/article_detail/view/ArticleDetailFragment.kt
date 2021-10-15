@@ -2,6 +2,7 @@ package com.enrech.articles.presentation.ui.article_detail.view
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.enrech.articles.R
@@ -20,11 +21,19 @@ class ArticleDetailFragment: Fragment(R.layout.fragment_article_detail) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentArticleDetailBinding.bind(view)
+        initActionBar()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun initActionBar() = binding.toolbar.apply {
+        setNavigationIcon(R.drawable.ic_round_arrow_back_ios_24)
+        setNavigationOnClickListener {
+            (activity as? AppCompatActivity)?.onSupportNavigateUp()
+        }
     }
 
 }
