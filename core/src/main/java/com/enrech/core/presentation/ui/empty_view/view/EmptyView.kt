@@ -8,7 +8,7 @@ import android.view.MotionEvent
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import com.enrech.core.databinding.EmptyViewBinding
-import com.enrech.core.presentation.ui.empty_view.model.EmptyVoEnum
+import com.enrech.core.presentation.ui.empty_view.model.EmptyVo
 
 class EmptyView @JvmOverloads constructor(
     context: Context,
@@ -23,7 +23,7 @@ class EmptyView @JvmOverloads constructor(
             true
         )
 
-    fun fillViews(emptyVoEnum: EmptyVoEnum) = with(binding) {
+    fun fillViews(emptyVoEnum: EmptyVo) = with(binding) {
         imageView.setImageResource(emptyVoEnum.imageId)
         context?.let { safeContext ->
             titleTextView.text = safeContext.getString(emptyVoEnum.titleId)
@@ -38,7 +38,7 @@ class EmptyView @JvmOverloads constructor(
         }
     }
 
-    private fun setOnClickListener(emptyVoEnum: EmptyVoEnum) = with(binding) {
+    private fun setOnClickListener(emptyVoEnum: EmptyVo) = with(binding) {
         retryButton.setOnClickListener { emptyVoEnum.retryCallback?.invoke() }
     }
 
