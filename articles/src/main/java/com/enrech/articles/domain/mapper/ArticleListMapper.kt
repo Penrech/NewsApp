@@ -2,8 +2,9 @@ package com.enrech.articles.domain.mapper
 
 import com.enrech.articles.data.model.ArticleListItemResponse
 import com.enrech.articles.presentation.model.SimpleArticleVo
+import javax.inject.Inject
 
-class ArticleListMapper {
+class ArticleListMapper @Inject constructor() {
 
     fun toVo(dtoList: List<ArticleListItemResponse>): List<SimpleArticleVo> =
         dtoList.map { fromListItemDtoToListItemVo(it) }

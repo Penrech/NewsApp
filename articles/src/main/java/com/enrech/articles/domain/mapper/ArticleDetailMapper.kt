@@ -2,8 +2,9 @@ package com.enrech.articles.domain.mapper
 
 import com.enrech.articles.data.model.ArticleDetailResponse
 import com.enrech.articles.presentation.model.DetailedArticleVo
+import javax.inject.Inject
 
-class ArticleDetailMapper {
+class ArticleDetailMapper @Inject constructor() {
 
     fun toVo(dto: ArticleDetailResponse): DetailedArticleVo =
         DetailedArticleVo(

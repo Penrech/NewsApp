@@ -9,7 +9,11 @@
         android:id="@+id/articleListFragment"
         android:name="com.enrech.articles.presentation.ui.article_list.view.ArticleListFragment"
         android:label="Article list"
-        tools:layout="@layout/fragment_article_list"/>
+        tools:layout="@layout/fragment_article_list">
+        <action
+            android:id="@+id/from_list_to_detail_action"
+            app:destination="@id/articleDetailFragment"/>
+    </fragment>
 
     <fragment
         android:id="@+id/articleDetailFragment"
