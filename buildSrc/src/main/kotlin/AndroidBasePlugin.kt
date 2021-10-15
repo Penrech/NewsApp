@@ -10,6 +10,7 @@ class AndroidBasePlugin: Plugin<Project> {
 
         target.plugins.apply("kotlin-android")
         target.plugins.apply("kotlin-kapt")
+        target.plugins.apply("androidx.navigation.safeargs.kotlin")
 
         (target.extensions.getByName("android") as? BaseExtension)?.apply {
             compileSdkVersion(DefaultConfig.compileSdk)

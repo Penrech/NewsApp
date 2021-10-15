@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.enrech.articles.R
 import com.enrech.articles.databinding.FragmentArticleListBinding
@@ -18,6 +19,8 @@ class ArticleListFragment : Fragment(R.layout.fragment_article_list) {
 
     private val viewModel: ArticleListViewModel by viewModels()
 
+    private val navController: NavController by lazy { findNavController() }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentArticleListBinding.bind(view)
@@ -31,7 +34,7 @@ class ArticleListFragment : Fragment(R.layout.fragment_article_list) {
 
     private fun dummyTest() = with(binding) {
         dummyButton.setOnClickListener {
-            findNavController().navigate(R.id.from_list_to_detail_action)
+            navController.navigate(ArticleListFragmentDirections.fromListToDetailAction(1))
         }
     }
 }
