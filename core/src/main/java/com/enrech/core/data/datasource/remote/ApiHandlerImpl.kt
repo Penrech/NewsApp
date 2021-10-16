@@ -15,7 +15,11 @@ class ApiHandlerImpl @Inject constructor(connectivityHandlerImpl: ConnectivityHa
     }
 
     override suspend fun <ApiResponse> fetchApiResponse(call: suspend () -> Response<ApiResponse>): Result<ApiResponse> {
-        return call.handleResponse()
+        return try {
+            call.handleResponse()
+        } catch (e: Exception) {
+            Result.Error(Failure.ApiFailure.Unknown)
+        }
     }
 
     private suspend fun <Input> (suspend () -> Response<Input>).handleResponse(): Result<Input> {
@@ -28,7 +32,7 @@ class ApiHandlerImpl @Inject constructor(connectivityHandlerImpl: ConnectivityHa
                             ?: Result.Error(Failure.ApiFailure.NotFound)
                     }
                     response.code() == NOT_FOUND_CODE -> Result.Error(Failure.ApiFailure.NotFound)
-                    else -> Result.Error(Failure.Unknown)
+                    else -> Result.Error(Failure.ApiFailure.Unknown)
                 }
             }
             else -> Result.Error(Failure.ApiFailure.Network)

@@ -52,14 +52,18 @@ class ArticleListViewModel @Inject constructor(
 
     private fun handleFailure(failure: Failure): EmptyVo =
         when (failure) {
-            is Failure.ApiFailure.Network -> {
-                CoreErrorsEmptyViews.NoNetworkConnection().apply {
-                    retryCallback = { loadArticleList() }
-                }
-            }
-            is Failure.ApiFailure.Unknown -> {
-                CoreErrorsEmptyViews.NetworkDatabase().apply {
-                    retryCallback = { loadArticleList() }
+            is Failure.ApiFailure -> {
+                when(failure) {
+                    is Failure.ApiFailure.Network -> {
+                        CoreErrorsEmptyViews.NoNetworkConnection().apply {
+                            retryCallback = { loadArticleList() }
+                        }
+                    }
+                    else -> {
+                        CoreErrorsEmptyViews.NetworkDatabase().apply {
+                            retryCallback = { loadArticleList() }
+                        }
+                    }
                 }
             }
             else -> {
