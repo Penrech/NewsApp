@@ -66,9 +66,7 @@ class ArticleListViewModel @Inject constructor(
                     }
                 }
             }
-            else -> {
-                CoreErrorsEmptyViews.General()
-            }
+            else -> CoreErrorsEmptyViews.General()
         }
 
 }
