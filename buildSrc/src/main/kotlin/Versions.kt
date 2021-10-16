@@ -20,7 +20,7 @@ object Versions {
     const val coreVersion = "1.3.2"
     const val fragmentVersion = "1.3.1"
     const val activityVersion = "1.2.4"
-    const val lifecycleVersion = "2.4.0-alpha03"
+    const val lifecycleVersion = "2.4.0-beta01"
     const val roomVersion = "2.3.0"
     const val navigationVersion = "2.3.5"
     const val paging3Version = "3.0.0"

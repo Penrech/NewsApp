@@ -5,6 +5,7 @@ sealed class Failure {
     sealed class ApiFailure: Failure() {
         object Network: ApiFailure()
         object NotFound: ApiFailure()
+        object Unknown: ApiFailure()
     }
 
     sealed class LocalFailure: Failure() {
