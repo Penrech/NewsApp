@@ -16,7 +16,7 @@ class ArticlesRepository @Inject constructor(
 
     suspend fun getArticlesList(): Result<List<SimpleArticleVo>> =
         when(val result = articlesApiDatasource.getArticlesList()) {
-            is Result.Success -> Result.Success(articleListMapper.toVo(result.data))
+            is Result.Success -> Result.Success(articleListMapper.toVo(result.data.listOfArticles))
             is Result.Error -> result
         }
 

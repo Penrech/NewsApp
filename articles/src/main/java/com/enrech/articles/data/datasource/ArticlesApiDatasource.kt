@@ -1,7 +1,7 @@
 package com.enrech.articles.data.datasource
 
 import com.enrech.articles.data.model.ArticleDetailResponse
-import com.enrech.articles.data.model.ArticleListItemResponse
+import com.enrech.articles.data.model.ArticleListRawResponse
 import com.enrech.core.data.datasource.remote.ApiHandler
 import com.enrech.core.data.datasource.remote.ApiHandlerImpl
 import com.enrech.core.data.response.Result
@@ -12,7 +12,7 @@ class ArticlesApiDatasource @Inject constructor(
     apiHandlerImpl: ApiHandlerImpl
 ) : ApiHandler by apiHandlerImpl {
 
-    suspend fun getArticlesList(): Result<List<ArticleListItemResponse>> =
+    suspend fun getArticlesList(): Result<ArticleListRawResponse> =
         fetchApiResponse { apiService.fetchArticlesList() }
 
     suspend fun getArticleDetail(articleId: Int): Result<ArticleDetailResponse> =

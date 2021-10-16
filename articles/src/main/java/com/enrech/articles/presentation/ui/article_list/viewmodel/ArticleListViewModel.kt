@@ -34,6 +34,7 @@ class ArticleListViewModel @Inject constructor(
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun loadArticleList() {
+        _viewState.value = ArticleListViewState.Loading
         viewModelScope.launch(ioDispatcher) {
             when (val result = getArticleListUseCase()) {
                 is Result.Success -> {

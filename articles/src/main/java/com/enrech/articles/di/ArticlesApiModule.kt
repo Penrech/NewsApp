@@ -13,7 +13,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object ArticlesApiModule {
 
-    private const val BASE_URL = "https://dynamic.pulselive.com/test/native"
+    private const val BASE_URL = "https://dynamic.pulselive.com/test/native/"
 
     @Singleton
     @Provides
