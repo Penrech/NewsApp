@@ -3,8 +3,8 @@ package com.enrech.articles.data.repository
 import com.enrech.articles.data.datasource.ArticlesApiDatasource
 import com.enrech.articles.domain.mapper.ArticleDetailMapper
 import com.enrech.articles.domain.mapper.ArticleListMapper
-import com.enrech.articles.presentation.model.DetailedArticleVo
-import com.enrech.articles.presentation.model.SimpleArticleVo
+import com.enrech.articles.presentation.ui.article_detail.model.DetailedArticleVo
+import com.enrech.articles.presentation.ui.article_list.model.SimpleArticleVo
 import com.enrech.core.data.response.Result
 import javax.inject.Inject
 

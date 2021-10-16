@@ -8,6 +8,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.enrech.articles.R
 import com.enrech.articles.databinding.FragmentArticleListBinding
+import com.enrech.articles.presentation.ui.article_list.view.adapter.ArticleListAdapter
 import com.enrech.articles.presentation.ui.article_list.viewmodel.ArticleListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,7 +25,7 @@ class ArticleListFragment : Fragment(R.layout.fragment_article_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentArticleListBinding.bind(view)
-        dummyTest()
+        initArticleRecyclerView()
     }
 
     override fun onDestroyView() {
@@ -32,9 +33,12 @@ class ArticleListFragment : Fragment(R.layout.fragment_article_list) {
         _binding = null
     }
 
-    private fun dummyTest() = with(binding) {
-        dummyButton.setOnClickListener {
-            navController.navigate(ArticleListFragmentDirections.fromListToDetailAction(1))
-        }
+    private fun initArticleRecyclerView() = with(binding.articlesRecyclerView) {
+        adapter = ArticleListAdapter(::onArticleClicked)
     }
+
+    private fun onArticleClicked(articleId: Int) {
+        navController.navigate(ArticleListFragmentDirections.fromListToDetailAction(articleId))
+    }
+
 }

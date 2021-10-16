@@ -1,7 +1,7 @@
 package com.enrech.articles.domain.usecase
 
 import com.enrech.articles.data.repository.ArticlesRepository
-import com.enrech.articles.presentation.model.SimpleArticleVo
+import com.enrech.articles.presentation.ui.article_list.model.SimpleArticleVo
 import com.enrech.core.data.response.Result
 import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject

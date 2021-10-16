@@ -1,7 +1,7 @@
 package com.enrech.articles.domain.mapper
 
 import com.enrech.articles.data.model.ArticleDetailResponse
-import com.enrech.articles.presentation.model.DetailedArticleVo
+import com.enrech.articles.presentation.ui.article_detail.model.DetailedArticleVo
 import javax.inject.Inject
 
 class ArticleDetailMapper @Inject constructor() {

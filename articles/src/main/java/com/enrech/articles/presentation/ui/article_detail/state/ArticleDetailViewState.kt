@@ -1,6 +1,6 @@
 package com.enrech.articles.presentation.ui.article_detail.state
 
-import com.enrech.articles.presentation.model.DetailedArticleVo
+import com.enrech.articles.presentation.ui.article_detail.model.DetailedArticleVo
 import com.enrech.core.data.response.Failure
 
 sealed class ArticleDetailViewState {

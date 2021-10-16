@@ -1,7 +1,7 @@
 package com.enrech.articles.domain.mapper
 
 import com.enrech.articles.data.model.ArticleListItemResponse
-import com.enrech.articles.presentation.model.SimpleArticleVo
+import com.enrech.articles.presentation.ui.article_list.model.SimpleArticleVo
 import javax.inject.Inject
 
 class ArticleListMapper @Inject constructor() {

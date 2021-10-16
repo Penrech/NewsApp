@@ -1,4 +1,4 @@
-package com.enrech.articles.presentation.model
+package com.enrech.articles.presentation.ui.article_detail.model
 
 data class DetailedArticleVo(
     val id: Int,
