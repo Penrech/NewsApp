@@ -25,20 +25,10 @@ android {
 dependencies {
     implementation(Deps.kotlin)
 
-    //arch components
-    coroutines()
     navigation()
     hilt()
-    lifecycle()
     implementation(Deps.appCompat)
-    implementation(Deps.recyclerview)
-    implementation(Deps.constraintlayout)
-    implementation(Deps.androidMaterial)
     implementation(Deps.coreKtx)
-
-    // testing
-    uiTest()
-    unitTest()
 
     //Projects
     implementation(project(":core"))

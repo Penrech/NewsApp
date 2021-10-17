@@ -8,7 +8,6 @@ object Versions {
     const val androidGradleVersion = "7.0.2"
     const val kotlinVersion = "1.5.31"
 
-    //support libs
     const val coroutinesVersion = "1.5.1"
     const val coroutinesAdapterVersion = "0.9.2"
     const val appCompatVersion = "1.3.1"
@@ -16,23 +15,15 @@ object Versions {
     const val constraintLayoutVersion = "2.0.4"
     const val recyclerViewVersion = "1.2.1"
 
-    //arch components
     const val coreVersion = "1.3.2"
-    const val fragmentVersion = "1.3.1"
-    const val activityVersion = "1.2.4"
     const val lifecycleVersion = "2.4.0-beta01"
-    const val roomVersion = "2.3.0"
     const val navigationVersion = "2.3.5"
-    const val paging3Version = "3.0.0"
 
     //retrofit
     const val retrofit2Version = "2.9.0"
 
     //parser
     const val gsonVersion = "2.8.6"
-
-    //ui
-    const val glideVersion = "4.12.0"
 
     //http
     const val okhttpVersion = "4.9.0"

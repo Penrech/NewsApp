@@ -5,14 +5,6 @@ plugins {
 }
 
 android {
-    defaultConfig {
-
-        kapt {
-            arguments {
-                arg("room.schemaLocation","$projectDir/schemas")
-            }
-        }
-    }
 
     buildTypes {
         getByName("release") {
@@ -29,7 +21,6 @@ dependencies {
     //arch components
     coroutines()
     navigation()
-    room()
     hilt()
     lifecycle()
     implementation(Deps.appCompat)
