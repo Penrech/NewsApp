@@ -31,6 +31,11 @@ class ArticleListFragment : Fragment(R.layout.fragment_article_list) {
 
     private val navController: NavController by lazy { findNavController() }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.loadArticleList()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentArticleListBinding.bind(view)

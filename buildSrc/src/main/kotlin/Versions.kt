@@ -36,6 +36,8 @@ object Versions {
     //test
     const val junitVersion = "4.13.2"
     const val mockkVersion = "1.11.0"
+    const val mockitoKotlinVersion = "2.2.0"
+    const val mockitoInlineVersion = "3.8.0"
     const val androidCoreTestingVersion = "2.1.0"
     const val androidxJunitVersion = "1.1.2"
     const val espressoVersion = "3.3.0"

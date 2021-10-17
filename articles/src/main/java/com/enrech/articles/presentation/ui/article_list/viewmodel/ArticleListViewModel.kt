@@ -1,6 +1,5 @@
 package com.enrech.articles.presentation.ui.article_list.viewmodel
 
-import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.enrech.articles.domain.usecase.GetArticleListUseCase
@@ -28,11 +27,6 @@ class ArticleListViewModel @Inject constructor(
     private val _viewState: MutableStateFlow<ArticleListViewState> = MutableStateFlow(ArticleListViewState.Loading)
     val viewState: StateFlow<ArticleListViewState> = _viewState
 
-    init {
-        loadArticleList()
-    }
-
-    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun loadArticleList() {
         _viewState.value = ArticleListViewState.Loading
         viewModelScope.launch(ioDispatcher) {

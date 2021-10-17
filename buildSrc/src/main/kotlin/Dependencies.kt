@@ -57,6 +57,9 @@ object TestDeps {
 
     const val kotlinTestJunit = "org.jetbrains.kotlin:kotlin-test-junit:${Versions.kotlinVersion}"
     const val mockk = "io.mockk:mockk:${Versions.mockkVersion}"
+    const val mockito2 =
+        "com.nhaarman.mockitokotlin2:mockito-kotlin:${Versions.mockitoKotlinVersion}"
+    const val mockitoInline = "org.mockito:mockito-inline:${Versions.mockitoInlineVersion}"
     const val androidCoreTesting =
         "androidx.arch.core:core-testing:${Versions.androidCoreTestingVersion}"
     const val coroutinesTest =
@@ -118,6 +121,8 @@ fun DependencyHandler.uiTest() {
 fun DependencyHandler.unitTest() {
     add("testImplementation", TestDeps.junit)
     add("testImplementation", TestDeps.mockk)
+    add("testImplementation", TestDeps.mockito2)
+    add("testImplementation", TestDeps.mockitoInline)
     add("testImplementation", TestDeps.kotlinTestJunit)
     add("testImplementation", TestDeps.androidCoreTesting)
     add("testImplementation", TestDeps.coroutinesTest)

@@ -1,5 +1,6 @@
 package com.enrech.core.data.datasource.remote
 
+import androidx.annotation.VisibleForTesting
 import com.enrech.core.data.response.Failure
 import com.enrech.core.data.response.Result
 import com.enrech.core.utils.ConnectivityHandler
@@ -22,7 +23,8 @@ class ApiHandlerImpl @Inject constructor(connectivityHandlerImpl: ConnectivityHa
         }
     }
 
-    private suspend fun <Input> (suspend () -> Response<Input>).handleResponse(): Result<Input> {
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    suspend fun <Input> (suspend () -> Response<Input>).handleResponse(): Result<Input> {
         return when {
             isNetworkAvailable() -> {
                 val response = this()

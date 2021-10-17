@@ -26,6 +26,9 @@ dependencies {
     implementation(Deps.androidMaterial)
     implementation(Deps.coreKtx)
 
+    implementation(TestDeps.junit)
+    implementation(TestDeps.coroutinesTest)
+
     //retrofit
     retrofit()
 
