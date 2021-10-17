@@ -1,6 +1,5 @@
 package com.enrech.core.data.datasource.remote
 
-import androidx.annotation.VisibleForTesting
 import com.enrech.core.data.response.Failure
 import com.enrech.core.data.response.Result
 import com.enrech.core.utils.ConnectivityHandler
@@ -17,27 +16,24 @@ class ApiHandlerImpl @Inject constructor(connectivityHandlerImpl: ConnectivityHa
 
     override suspend fun <ApiResponse> fetchApiResponse(call: suspend () -> Response<ApiResponse>): Result<ApiResponse> {
         return try {
-            call.handleResponse()
+            when {
+                isNetworkAvailable() -> handleResponse(call)
+                else -> Result.Error(Failure.ApiFailure.Network)
+            }
         } catch (e: Exception) {
             Result.Error(Failure.ApiFailure.Unknown)
         }
     }
 
-    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    suspend fun <Input> (suspend () -> Response<Input>).handleResponse(): Result<Input> {
+    private suspend fun <Input> handleResponse(call: (suspend () -> Response<Input>)): Result<Input> {
+        val response = call()
         return when {
-            isNetworkAvailable() -> {
-                val response = this()
-                when {
-                    response.isSuccessful -> {
-                        response.body()?.let { Result.Success(it) }
-                            ?: Result.Error(Failure.ApiFailure.NotFound)
-                    }
-                    response.code() == NOT_FOUND_CODE -> Result.Error(Failure.ApiFailure.NotFound)
-                    else -> Result.Error(Failure.ApiFailure.Unknown)
-                }
+            response.isSuccessful -> {
+                response.body()?.let { Result.Success(it) }
+                    ?: Result.Error(Failure.ApiFailure.Unknown)
             }
-            else -> Result.Error(Failure.ApiFailure.Network)
+            response.code() == NOT_FOUND_CODE -> Result.Error(Failure.ApiFailure.NotFound)
+            else -> Result.Error(Failure.ApiFailure.Unknown)
         }
     }
 }

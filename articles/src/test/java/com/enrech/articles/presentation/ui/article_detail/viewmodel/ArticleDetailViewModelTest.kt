@@ -91,9 +91,7 @@ class ArticleDetailViewModelTest {
 
             //ASSERT
             assert((sut.viewState.value as ArticleDetailViewState.Error).emptyVo is CoreErrorsEmptyViews.NoNetworkConnection)
-            clearAllMocks()
-            lambdaSlot.captured.invoke()
-            coVerify { sut.loadDetailsWithId(id) }
+            verifyRetryCallback(callback = lambdaSlot.captured, id = id)
         }
 
     @Test
@@ -116,9 +114,7 @@ class ArticleDetailViewModelTest {
 
             //ASSERT
             assert((sut.viewState.value as ArticleDetailViewState.Error).emptyVo is CoreErrorsEmptyViews.NetworkDatabase)
-            clearAllMocks()
-            lambdaSlot.captured.invoke()
-            coVerify { sut.loadDetailsWithId(id) }
+            verifyRetryCallback(callback = lambdaSlot.captured, id = id)
         }
 
     @Test
@@ -166,6 +162,12 @@ class ArticleDetailViewModelTest {
 
     private suspend fun mockFailure(id: Int, failure: Failure) {
         coEvery { getArticleDetailUseCase.invoke(id) } returns Result.Error(failure)
+    }
+
+    private fun verifyRetryCallback(callback: () -> Unit, id: Int) {
+        clearAllMocks()
+        callback.invoke()
+        coVerify { sut.loadDetailsWithId(id) }
     }
 
 }
