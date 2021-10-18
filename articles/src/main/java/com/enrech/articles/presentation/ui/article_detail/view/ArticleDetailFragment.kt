@@ -2,6 +2,8 @@ package com.enrech.articles.presentation.ui.article_detail.view
 
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.ColorRes
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -18,11 +20,11 @@ import com.enrech.articles.presentation.ui.article_detail.model.DetailedArticleV
 import com.enrech.articles.presentation.ui.article_detail.state.ArticleDetailViewState
 import com.enrech.articles.presentation.ui.article_detail.viewmodel.ArticleDetailViewModel
 import com.enrech.core.presentation.ui.empty_view.model.EmptyVo
-import com.google.android.material.appbar.AppBarLayout
-import com.google.android.material.appbar.AppBarLayout.LayoutParams.*
+import com.enrech.core.presentation.ui.empty_view.view.behavior.CustomAppBarLayoutBehavior
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ArticleDetailFragment: Fragment(R.layout.fragment_article_detail) {
@@ -35,6 +37,8 @@ class ArticleDetailFragment: Fragment(R.layout.fragment_article_detail) {
     private val args: ArticleDetailFragmentArgs by navArgs()
 
     private val navController: NavController by lazy { findNavController() }
+
+    @Inject lateinit var animationBuilder: ArticleDetailColorAnimationBuilder
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -56,17 +60,23 @@ class ArticleDetailFragment: Fragment(R.layout.fragment_article_detail) {
     private fun initActionBar() = with(binding) {
         toolbar.apply {
             setNavigationIcon(R.drawable.ic_round_arrow_back_ios_24)
-            context?.let { safeContext ->
-                navigationIcon?.setTint(
-                    ContextCompat.getColor(
-                        safeContext,
-                        R.color.white
-                    )
-                )
-            }
+            setNavigationIconColor(R.color.design_default_color_primary)
             setNavigationOnClickListener {
                 navController.navigateUp()
             }
+        }
+        appbar.setLiftable(false)
+        appbar.setLifted(false)
+    }
+
+    private fun setNavigationIconColor(@ColorRes color: Int) = with(binding.toolbar) {
+        context?.let { safeContext ->
+            navigationIcon?.setTint(
+                ContextCompat.getColor(
+                    safeContext,
+                    color
+                )
+            )
         }
     }
 
@@ -101,22 +111,39 @@ class ArticleDetailFragment: Fragment(R.layout.fragment_article_detail) {
         isVisible = show
     }
 
+    private fun configureEmptyView(emptyVo: EmptyVo) = with(binding.emptyView) {
+        this.fillViews(emptyVo)
+    }
+
     private fun handleSuccess(data: DetailedArticleVo) = with(binding) {
         collapsingToolbar.title = data.title
         dateTextView.text = data.date
         subtitleTextView.text = data.subtitle
         bodyTextView.text = data.body
+        animateOnSuccess()
     }
 
-    private fun configureEmptyView(emptyVo: EmptyVo) = with(binding.emptyView) {
-        this.fillViews(emptyVo)
+    private fun animateOnSuccess() = with(binding) {
+        animationBuilder
+            .animateNavigationIconColor(toColorId = R.color.white) { animatedColor ->
+                toolbar.navigationIcon?.setTint(animatedColor)
+            }
+            .animateTitleTextColor(toColorId = R.color.white) { animatedColor ->
+                collapsingToolbar.setCollapsedTitleTextColor(animatedColor)
+                collapsingToolbar.setExpandedTitleColor(animatedColor)
+            }
+            .animateAppBarBackgroundColor(toColorId = R.color.design_default_color_primary) { animatedColor ->
+                appbar.setBackgroundColor(animatedColor)
+            }
+            .startAnimation()
+
+        enableToolbarScroll(true)
+        appbar.setExpanded(true, true)
     }
 
-    private fun enableToolbarScroll(enable: Boolean) = with(binding.collapsingToolbar) {
-        (layoutParams as? AppBarLayout.LayoutParams)?.scrollFlags =
-            if (enable) {
-                SCROLL_FLAG_SCROLL or SCROLL_FLAG_EXIT_UNTIL_COLLAPSED or SCROLL_FLAG_SNAP
-            } else 0
+    private fun enableToolbarScroll(enable: Boolean) = with(binding) {
+        ((appbar.layoutParams as? CoordinatorLayout.LayoutParams)?.behavior as? CustomAppBarLayoutBehavior)?.shouldScroll =
+            enable
     }
 
 }

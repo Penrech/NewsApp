@@ -10,6 +10,9 @@
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:background="@android:color/transparent"
+        app:layout_behavior="com.enrech.core.presentation.ui.empty_view.view.behavior.CustomAppBarLayoutBehavior"
+        android:stateListAnimator="@null"
         app:expanded="false">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
