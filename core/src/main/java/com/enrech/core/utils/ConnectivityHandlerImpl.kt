@@ -13,28 +13,26 @@ class ConnectivityHandlerImpl @Inject constructor(private val connectivityManage
     @SuppressLint("MissingPermission")
     override fun isNetworkAvailable(): Boolean {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val networkCapabilities = connectivityManager.activeNetwork ?: return false
-            val activeNetwork =
-                connectivityManager.getNetworkCapabilities(networkCapabilities) ?: return false
-            return when {
-                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
-                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
-                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
-                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_VPN) -> true
-                else -> false
-            }
+            return connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+                ?.let { activeNetwork ->
+                    when {
+                        activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+                        activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+                        activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+                        activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_VPN) -> true
+                        else -> false
+                    }
+                } ?: false
         } else {
-            connectivityManager.activeNetworkInfo?.run {
-                return when (type) {
-                    ConnectivityManager.TYPE_WIFI -> true
-                    ConnectivityManager.TYPE_MOBILE -> true
-                    ConnectivityManager.TYPE_ETHERNET -> true
+            return connectivityManager.activeNetworkInfo?.run {
+                when (type) {
+                    ConnectivityManager.TYPE_WIFI,
+                    ConnectivityManager.TYPE_MOBILE,
+                    ConnectivityManager.TYPE_ETHERNET,
                     ConnectivityManager.TYPE_VPN -> true
                     else -> false
                 }
-            } ?: run {
-                return false
-            }
+            } ?: false
         }
     }
 }

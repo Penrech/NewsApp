@@ -14,26 +14,25 @@ class ApiHandlerImpl @Inject constructor(connectivityHandlerImpl: ConnectivityHa
         private const val NOT_FOUND_CODE = 404
     }
 
-    override suspend fun <ApiResponse> fetchApiResponse(call: suspend () -> Response<ApiResponse>): Result<ApiResponse> {
-        return try {
+    override suspend fun <ApiResponse> fetchApiResponse(call: suspend () -> Response<ApiResponse>): Result<ApiResponse> =
+        when {
+            isNetworkAvailable() -> handleResponse(call)
+            else -> Result.Error(Failure.ApiFailure.Network)
+        }
+
+    private suspend fun <Input> handleResponse(call: (suspend () -> Response<Input>)): Result<Input> =
+        try {
+            val response = call()
             when {
-                isNetworkAvailable() -> handleResponse(call)
-                else -> Result.Error(Failure.ApiFailure.Network)
+                response.isSuccessful -> {
+                    response.body()?.let { Result.Success(it) }
+                        ?: Result.Error(Failure.ApiFailure.Unknown)
+                }
+                response.code() == NOT_FOUND_CODE -> Result.Error(Failure.ApiFailure.NotFound)
+                else -> Result.Error(Failure.ApiFailure.Unknown)
             }
         } catch (e: Exception) {
             Result.Error(Failure.ApiFailure.Unknown)
         }
-    }
 
-    private suspend fun <Input> handleResponse(call: (suspend () -> Response<Input>)): Result<Input> {
-        val response = call()
-        return when {
-            response.isSuccessful -> {
-                response.body()?.let { Result.Success(it) }
-                    ?: Result.Error(Failure.ApiFailure.Unknown)
-            }
-            response.code() == NOT_FOUND_CODE -> Result.Error(Failure.ApiFailure.NotFound)
-            else -> Result.Error(Failure.ApiFailure.Unknown)
-        }
-    }
 }

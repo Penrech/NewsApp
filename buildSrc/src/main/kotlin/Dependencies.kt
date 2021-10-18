@@ -126,4 +126,5 @@ fun DependencyHandler.unitTest() {
     add("testImplementation", TestDeps.kotlinTestJunit)
     add("testImplementation", TestDeps.androidCoreTesting)
     add("testImplementation", TestDeps.coroutinesTest)
+    add("testImplementation", TestDeps.robolectric)
 }
